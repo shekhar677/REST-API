@@ -13,9 +13,9 @@ router.get('/', (req, res, next) => {
         count: doc.length,
         products: doc.map(doc => {
           return {
+            _id: doc._id,
             name: doc.name,
             price: doc.price,
-            _id: doc._id,
             request: {
               type: 'GET',
               url: 'http://localhost:3000/products/'+ doc._id
@@ -46,9 +46,9 @@ router.post('/', (req, res, net) => {
       res.status(201).json({
         message: 'Product Created',
         createdProduct: {
+          _id: result.id,
           name: result.name,
           price: result.price,
-          _id: result.id,
           request: {
             type: 'GET',
             url: 'http://localhost:3000/products/'+ result._id
@@ -71,7 +71,7 @@ router.get('/:productId', (req, res, next) => {
     .exec()
     .then(doc => {
       console.log(doc);
-      if(doc) {
+      if (doc) {
         res.status(200).json({
           product: doc,
           request: {
